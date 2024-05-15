@@ -4,7 +4,7 @@ pipeline{
     tools{
         maven 'M2_HOME'
     }
-    
+
     stages{
         stage("maven"){
             steps{
@@ -12,7 +12,13 @@ pipeline{
         }
 
         }
-
+        stage('upload artifact'){
+            steps{
+                sh 'curl -uadmin:AP8PYxTpmnyMe26bsUvyihFH7Sz -T\
+                 target/bio*.jar\
+                 "http://ec2-34-204-101-177.compute-1.amazonaws.com:8081/artifactory/geolocation/geo/bio_${BUILD_ID}.jar"'
+            }
+        }
 
     }
 }
